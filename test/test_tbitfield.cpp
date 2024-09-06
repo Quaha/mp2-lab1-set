@@ -309,3 +309,166 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+// All tests below Created by ChatGPT3
+
+TEST(TBitField, can_set_all_bits) {
+    const int size = 10;
+    TBitField bf(size);
+    for (int i = 0; i < size; i++) {
+        bf.SetBit(i);
+    }
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(1, bf.GetBit(i));
+    }
+}
+
+TEST(TBitField, can_clear_all_bits) {
+    const int size = 10;
+    TBitField bf(size);
+    for (int i = 0; i < size; i++) {
+        bf.SetBit(i);
+    }
+    for (int i = 0; i < size; i++) {
+        bf.ClrBit(i);
+    }
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(0, bf.GetBit(i));
+    }
+}
+
+TEST(TBitField, can_copy_bitfield) {
+    const int size = 5;
+    TBitField bf1(size);
+    bf1.SetBit(0);
+    bf1.SetBit(3);
+
+    TBitField bf2(bf1);
+
+    EXPECT_EQ(bf1, bf2);
+}
+
+TEST(TBitField, can_assign_bitfields_of_different_sizes) {
+    const int size1 = 5;
+    const int size2 = 10;
+    TBitField bf1(size1);
+    TBitField bf2(size2);
+
+    bf1.SetBit(0);
+    bf1.SetBit(4);
+
+    bf2 = bf1;
+
+    EXPECT_EQ(bf1, bf2);
+}
+
+TEST(TBitField, throws_when_set_bit_with_invalid_index) {
+    const int size = 5;
+    TBitField bf(size);
+    ASSERT_ANY_THROW(bf.SetBit(size + 1));
+}
+
+TEST(TBitField, throws_when_get_bit_with_invalid_index) {
+    const int size = 5;
+    TBitField bf(size);
+    ASSERT_ANY_THROW(bf.GetBit(size + 1));
+}
+
+TEST(TBitField, can_create_bitfield_with_zero_size) {
+    ASSERT_NO_THROW(TBitField bf(0));
+}
+
+TEST(TBitField, correct_length_after_creation) {
+    const int size = 15;
+    TBitField bf(size);
+    EXPECT_EQ(size, bf.GetLength());
+}
+
+TEST(TBitField, can_clear_bits_in_uninitialized_bitfield) {
+    const int size = 10;
+    TBitField bf(size);
+    for (int i = 0; i < size; i++) {
+        bf.ClrBit(i);
+    }
+    for (int i = 0; i < size; i++) {
+        EXPECT_EQ(0, bf.GetBit(i));
+    }
+}
+
+TEST(TBitField, can_assign_bitfield_to_itself) {
+    const int size = 5;
+    TBitField bf(size);
+    bf.SetBit(2);
+
+    ASSERT_NO_THROW(bf = bf);
+    EXPECT_EQ(1, bf.GetBit(2));
+}
+
+TEST(TBitField, or_operator_with_equal_bitfields) {
+    const int size = 4;
+    TBitField bf1(size), bf2(size), expBf(size);
+
+    bf1.SetBit(1);
+    bf2.SetBit(1);
+
+    expBf.SetBit(1);
+
+    EXPECT_EQ(expBf, bf1 | bf2);
+}
+
+TEST(TBitField, and_operator_with_empty_bitfields) {
+    const int size = 6;
+    TBitField bf1(size), bf2(size), expBf(size);
+
+    EXPECT_EQ(expBf, bf1 & bf2);
+}
+
+TEST(TBitField, invert_empty_bitfield) {
+    const int size = 5;
+    TBitField bf(size), expBf(size);
+
+    for (int i = 0; i < size; i++) {
+        expBf.SetBit(i);
+    }
+
+    EXPECT_EQ(expBf, ~bf);
+}
+
+TEST(TBitField, bitfields_of_different_sizes_are_not_equal) {
+    const int size1 = 4;
+    const int size2 = 8;
+    TBitField bf1(size1), bf2(size2);
+
+    EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, can_use_assignment_operator) {
+    const int size1 = 5;
+    const int size2 = 7;
+
+    TBitField bf1(size1);
+    TBitField bf2(size2);
+
+    bf1.SetBit(2);
+    bf2.SetBit(3);
+
+    bf2 = bf1;
+
+    EXPECT_EQ(1, bf2.GetBit(2));
+    EXPECT_EQ(0, bf2.GetBit(3));
+}
+
+TEST(TBitField, and_operator_with_partial_match) {
+    const int size = 8;
+    TBitField bf1(size), bf2(size), expBf(size);
+
+    bf1.SetBit(2);
+    bf1.SetBit(5);
+
+    bf2.SetBit(2);
+    bf2.SetBit(7);
+
+    expBf.SetBit(2);
+
+    EXPECT_EQ(expBf, bf1 & bf2);
+}
