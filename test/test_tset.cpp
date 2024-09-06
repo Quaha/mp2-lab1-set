@@ -295,3 +295,176 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+// Added tests
+
+TEST(TSet, throws_when_create_set_with_negative_size) {
+	ASSERT_ANY_THROW(TSet set(-3));
+}
+
+TEST(TSet, can_check_element_membership) {
+	const int size = 5;
+	TSet set(size);
+	// set = {2}
+	set.InsElem(2);
+
+	EXPECT_EQ(1, set.IsMember(2));
+}
+
+TEST(TSet, throws_when_insert_element_out_of_range) {
+	const int size = 4;
+	TSet set(size);
+
+	ASSERT_ANY_THROW(set.InsElem(5));
+}
+
+TEST(TSet, throws_when_delete_element_out_of_range) {
+	const int size = 4;
+	TSet set(size);
+
+	ASSERT_ANY_THROW(set.DelElem(5));
+}
+
+TEST(TSet, can_insert_and_delete_multiple_elements) {
+	const int size = 5;
+	TSet set(size);
+
+	set.InsElem(1);
+	set.InsElem(3);
+	set.DelElem(1);
+	set.DelElem(3);
+
+	EXPECT_EQ(0, set.IsMember(1));
+	EXPECT_EQ(0, set.IsMember(3));
+}
+
+TEST(TSet, throws_when_check_membership_of_element_out_of_range) {
+	const int size = 4;
+	TSet set(size);
+
+	ASSERT_ANY_THROW(set.IsMember(6));
+}
+
+TEST(TSet, can_combine_sets_using_plus_equal_operator) {
+	const int size = 5;
+	TSet set1(size), set2(size);
+	// set1 = {1, 3}
+	set1.InsElem(1);
+	set1.InsElem(3);
+	// set2 = {0, 2}
+	set2.InsElem(0);
+	set2.InsElem(2);
+
+	set1 = set1 + set2;
+
+	EXPECT_EQ(1, set1.IsMember(0));
+	EXPECT_EQ(1, set1.IsMember(1));
+	EXPECT_EQ(1, set1.IsMember(2));
+	EXPECT_EQ(1, set1.IsMember(3));
+}
+
+TEST(TSet, can_intersect_sets_using_multiply_equal_operator) {
+	const int size = 5;
+	TSet set1(size), set2(size);
+	// set1 = {1, 3, 4}
+	set1.InsElem(1);
+	set1.InsElem(3);
+	set1.InsElem(4);
+	// set2 = {1, 4}
+	set2.InsElem(1);
+	set2.InsElem(4);
+
+	set1 = set1 * set2;
+
+	EXPECT_EQ(1, set1.IsMember(1));
+	EXPECT_EQ(0, set1.IsMember(3));
+	EXPECT_EQ(1, set1.IsMember(4));
+}
+
+TEST(TSet, can_combine_sets_of_different_sizes_using_plus_operator) {
+	const int size1 = 5, size2 = 7;
+	TSet set1(size1), set2(size2);
+	// set1 = {1, 3}
+	set1.InsElem(1);
+	set1.InsElem(3);
+	// set2 = {0, 2, 6}
+	set2.InsElem(0);
+	set2.InsElem(2);
+	set2.InsElem(6);
+
+	TSet result = set1 + set2;
+
+	EXPECT_EQ(1, result.IsMember(0));
+	EXPECT_EQ(1, result.IsMember(1));
+	EXPECT_EQ(1, result.IsMember(2));
+	EXPECT_EQ(1, result.IsMember(3));
+	EXPECT_EQ(1, result.IsMember(6));
+}
+
+TEST(TSet, can_intersect_sets_of_different_sizes_using_multiply_operator) {
+	const int size1 = 5, size2 = 7;
+	TSet set1(size1), set2(size2);
+	// set1 = {1, 3, 4}
+	set1.InsElem(1);
+	set1.InsElem(3);
+	set1.InsElem(4);
+	// set2 = {0, 1, 4, 6}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(4);
+	set2.InsElem(6);
+
+	TSet result = set1 * set2;
+
+	EXPECT_EQ(0, result.IsMember(0));
+	EXPECT_EQ(1, result.IsMember(1));
+	EXPECT_EQ(0, result.IsMember(3));
+	EXPECT_EQ(1, result.IsMember(4));
+	EXPECT_EQ(0, result.IsMember(6));
+}
+
+TEST(TSet, can_negate_a_set) {
+	const int size = 5;
+	TSet set(size), expectedSet(size);
+	// set = {1, 3}
+	set.InsElem(1);
+	set.InsElem(3);
+	// expectedSet = {0, 2, 4}
+	expectedSet.InsElem(0);
+	expectedSet.InsElem(2);
+	expectedSet.InsElem(4);
+
+	TSet result = ~set;
+
+	EXPECT_EQ(expectedSet, result);
+}
+
+TEST(TSet, can_insert_element_using_plus_operator_within_valid_range) {
+	const int size = 5;
+	const int elem = 2;
+	TSet set(size);
+
+	TSet result = set + elem;
+
+	EXPECT_EQ(1, result.IsMember(elem));
+}
+
+TEST(TSet, can_remove_element_using_minus_operator) {
+	const int size = 5;
+	const int elem = 2;
+	TSet set(size);
+	set.InsElem(elem);
+
+	TSet result = set - elem;
+
+	EXPECT_EQ(0, result.IsMember(elem));
+}
+
+TEST(TSet, throws_when_removing_element_out_of_range_using_minus_operator) {
+	const int size = 4;
+	const int elem = 5;
+	TSet set(size);
+
+	ASSERT_ANY_THROW(set - elem);
+}
+
