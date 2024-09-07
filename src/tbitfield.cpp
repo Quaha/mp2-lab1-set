@@ -50,7 +50,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 
 TELEM TBitField::GetMemMask(const int k) const // битовая маска для бита k (k < type_size)
 {
-    return static_cast<TELEM>(1ll << k);
+    return static_cast<TELEM>(1) << k;
 }
 
 // доступ к битам битового поля
@@ -159,7 +159,7 @@ TBitField TBitField::operator~(void) // отрицание
     TBitField result(this->BitLen);
 
     int type_size = sizeof(TELEM) * 8;
-    TELEM mask = static_cast<TELEM>(((1ll << (type_size - 1)) - 1) | (1ll << (type_size - 1)));
+    TELEM mask = ((static_cast<TELEM>(1) << (type_size - 1)) - static_cast<TELEM>(1)) | (static_cast<TELEM>(1) << (type_size - static_cast<TELEM>(1)));
 
     for (int i = 0; i < result.MemLen; i++) {
         result.pMem[i] = this->pMem[i] ^ mask;
@@ -167,7 +167,7 @@ TBitField TBitField::operator~(void) // отрицание
 
     if (this->BitLen % type_size != 0 && this->BitLen > 0) {
         int signifier = BitLen % type_size;
-        TELEM mask = static_cast<TELEM>((1ll << signifier) - 1);
+        TELEM mask = (static_cast<TELEM>(1) << signifier) - static_cast<TELEM>(1);
         result.pMem[result.MemLen - 1] &= mask;
     }
     return result;

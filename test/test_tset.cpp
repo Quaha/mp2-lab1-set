@@ -346,7 +346,7 @@ TEST(TSet, throws_when_check_membership_of_element_out_of_range) {
 }
 
 TEST(TSet, can_combine_sets_using_plus_equal_operator) {
-	const int size = 5;
+	const int size = 564;
 	TSet set1(size), set2(size);
 	// set1 = {1, 3}
 	set1.InsElem(1);
@@ -382,12 +382,12 @@ TEST(TSet, can_intersect_sets_using_multiply_equal_operator) {
 }
 
 TEST(TSet, can_combine_sets_of_different_sizes_using_plus_operator) {
-	const int size1 = 5, size2 = 7;
+	const int size1 = 55335, size2 = 7632632;
 	TSet set1(size1), set2(size2);
-	// set1 = {1, 3}
+
 	set1.InsElem(1);
 	set1.InsElem(3);
-	// set2 = {0, 2, 6}
+	
 	set2.InsElem(0);
 	set2.InsElem(2);
 	set2.InsElem(6);
@@ -402,13 +402,13 @@ TEST(TSet, can_combine_sets_of_different_sizes_using_plus_operator) {
 }
 
 TEST(TSet, can_intersect_sets_of_different_sizes_using_multiply_operator) {
-	const int size1 = 5, size2 = 7;
+	const int size1 = 5662, size2 = 73463;
 	TSet set1(size1), set2(size2);
-	// set1 = {1, 3, 4}
+
 	set1.InsElem(1);
 	set1.InsElem(3);
 	set1.InsElem(4);
-	// set2 = {0, 1, 4, 6}
+
 	set2.InsElem(0);
 	set2.InsElem(1);
 	set2.InsElem(4);
@@ -426,10 +426,10 @@ TEST(TSet, can_intersect_sets_of_different_sizes_using_multiply_operator) {
 TEST(TSet, can_negate_a_set) {
 	const int size = 5;
 	TSet set(size), expectedSet(size);
-	// set = {1, 3}
+
 	set.InsElem(1);
 	set.InsElem(3);
-	// expectedSet = {0, 2, 4}
+
 	expectedSet.InsElem(0);
 	expectedSet.InsElem(2);
 	expectedSet.InsElem(4);
@@ -440,8 +440,8 @@ TEST(TSet, can_negate_a_set) {
 }
 
 TEST(TSet, can_insert_element_using_plus_operator_within_valid_range) {
-	const int size = 5;
-	const int elem = 2;
+	const int size = 523523;
+	const int elem = 2532;
 	TSet set(size);
 
 	TSet result = set + elem;
@@ -450,8 +450,8 @@ TEST(TSet, can_insert_element_using_plus_operator_within_valid_range) {
 }
 
 TEST(TSet, can_remove_element_using_minus_operator) {
-	const int size = 5;
-	const int elem = 2;
+	const int size = 5325325;
+	const int elem = 2325;
 	TSet set(size);
 	set.InsElem(elem);
 
@@ -461,8 +461,8 @@ TEST(TSet, can_remove_element_using_minus_operator) {
 }
 
 TEST(TSet, throws_when_removing_element_out_of_range_using_minus_operator) {
-	const int size = 4;
-	const int elem = 5;
+	const int size = 434643;
+	const int elem = 5634677;
 	TSet set(size);
 
 	ASSERT_ANY_THROW(set - elem);

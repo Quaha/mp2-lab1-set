@@ -313,7 +313,7 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 // Added tests
 
 TEST(TBitField, can_set_all_bits) {
-    const int size = 10;
+    const int size = 1000;
     TBitField bf(size);
     for (int i = 0; i < size; i++) {
         bf.SetBit(i);
@@ -324,7 +324,7 @@ TEST(TBitField, can_set_all_bits) {
 }
 
 TEST(TBitField, can_clear_all_bits) {
-    const int size = 10;
+    const int size = 1000;
     TBitField bf(size);
     for (int i = 0; i < size; i++) {
         bf.SetBit(i);
@@ -338,7 +338,7 @@ TEST(TBitField, can_clear_all_bits) {
 }
 
 TEST(TBitField, can_copy_bitfield) {
-    const int size = 5;
+    const int size = 5000;
     TBitField bf1(size);
     bf1.SetBit(0);
     bf1.SetBit(3);
@@ -349,8 +349,8 @@ TEST(TBitField, can_copy_bitfield) {
 }
 
 TEST(TBitField, can_assign_bitfields_of_different_sizes) {
-    const int size1 = 5;
-    const int size2 = 10;
+    const int size1 = 5000;
+    const int size2 = 10000;
     TBitField bf1(size1);
     TBitField bf2(size2);
 
@@ -363,13 +363,13 @@ TEST(TBitField, can_assign_bitfields_of_different_sizes) {
 }
 
 TEST(TBitField, throws_when_set_bit_with_invalid_index) {
-    const int size = 5;
+    const int size = 500000;
     TBitField bf(size);
     ASSERT_ANY_THROW(bf.SetBit(size + 1));
 }
 
 TEST(TBitField, throws_when_get_bit_with_invalid_index) {
-    const int size = 5;
+    const int size = 123456;
     TBitField bf(size);
     ASSERT_ANY_THROW(bf.GetBit(size + 1));
 }
@@ -379,13 +379,13 @@ TEST(TBitField, can_create_bitfield_with_zero_size) {
 }
 
 TEST(TBitField, correct_length_after_creation) {
-    const int size = 15;
+    const int size = 98272;
     TBitField bf(size);
     EXPECT_EQ(size, bf.GetLength());
 }
 
 TEST(TBitField, can_clear_bits_in_uninitialized_bitfield) {
-    const int size = 10;
+    const int size = 1000;
     TBitField bf(size);
     for (int i = 0; i < size; i++) {
         bf.ClrBit(i);
@@ -396,7 +396,7 @@ TEST(TBitField, can_clear_bits_in_uninitialized_bitfield) {
 }
 
 TEST(TBitField, can_assign_bitfield_to_itself) {
-    const int size = 5;
+    const int size = 574574;
     TBitField bf(size);
     bf.SetBit(2);
 
@@ -405,7 +405,7 @@ TEST(TBitField, can_assign_bitfield_to_itself) {
 }
 
 TEST(TBitField, or_operator_with_equal_bitfields) {
-    const int size = 4;
+    const int size = 455555;
     TBitField bf1(size), bf2(size), expBf(size);
 
     bf1.SetBit(1);
@@ -417,14 +417,14 @@ TEST(TBitField, or_operator_with_equal_bitfields) {
 }
 
 TEST(TBitField, and_operator_with_empty_bitfields) {
-    const int size = 6;
+    const int size = 634566;
     TBitField bf1(size), bf2(size), expBf(size);
 
     EXPECT_EQ(expBf, bf1 & bf2);
 }
 
 TEST(TBitField, invert_empty_bitfield) {
-    const int size = 5;
+    const int size = 534643;
     TBitField bf(size), expBf(size);
 
     for (int i = 0; i < size; i++) {
@@ -435,16 +435,16 @@ TEST(TBitField, invert_empty_bitfield) {
 }
 
 TEST(TBitField, bitfields_of_different_sizes_are_not_equal) {
-    const int size1 = 4;
-    const int size2 = 8;
+    const int size1 = 46446;
+    const int size2 = 843743;
     TBitField bf1(size1), bf2(size2);
 
     EXPECT_NE(bf1, bf2);
 }
 
 TEST(TBitField, can_use_assignment_operator) {
-    const int size1 = 5;
-    const int size2 = 7;
+    const int size1 = 5444;
+    const int size2 = 76437;
 
     TBitField bf1(size1);
     TBitField bf2(size2);
@@ -459,7 +459,7 @@ TEST(TBitField, can_use_assignment_operator) {
 }
 
 TEST(TBitField, and_operator_with_partial_match) {
-    const int size = 8;
+    const int size = 8777436;
     TBitField bf1(size), bf2(size), expBf(size);
 
     bf1.SetBit(2);
